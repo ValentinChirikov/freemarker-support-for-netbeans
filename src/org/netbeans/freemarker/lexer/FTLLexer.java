@@ -104,6 +104,6 @@ class FTLLexer implements Lexer<FTLTokenId> {
     }
 
 	private void debug(Object s) {
-		System.out.println(s);
+		//System.out.println(s);//-20181005 valc@ese.by make IDE slow when netbaeans.conf has console log enabled
 	}
 }
