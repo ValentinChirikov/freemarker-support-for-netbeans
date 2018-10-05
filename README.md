@@ -1,3 +1,7 @@
+forked from rostanek/freemarker-support-for-netbeans
+- dsabled debug output for performance reasons
+- added dependent jar
+
 # freemarker-support-for-netbeans
 FreeMarker (2.3.23) support for NetBeans IDE including:
 - syntax coloring
