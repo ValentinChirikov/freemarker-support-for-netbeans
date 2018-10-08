@@ -6,6 +6,7 @@ import org.netbeans.freemarker.parser.FTLParser;
 import org.netbeans.modules.csl.spi.DefaultLanguageConfig;
 import org.netbeans.modules.csl.spi.LanguageRegistration;
 import org.netbeans.modules.parsing.spi.Parser;
+import org.netbeans.modules.csl.spi.CommentHandler;
 
 /**
  *
@@ -29,4 +30,8 @@ public class FTLLanguage extends DefaultLanguageConfig {
         return new FTLParser();
     }
 
+    @Override
+    public CommentHandler getCommentHandler() {
+        return new FTLCommentHandler();
+    }
 }
