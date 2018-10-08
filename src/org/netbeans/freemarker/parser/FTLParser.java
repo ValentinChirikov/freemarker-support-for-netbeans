@@ -25,7 +25,7 @@ public class FTLParser extends Parser {
 
     private Snapshot snapshot;
     private FMParser freemarkerParser;
-	private final List<ParseException> errors = new ArrayList<ParseException>();
+	private final List<ParseException> errors = new ArrayList<>();
 
     @Override
     public void parse (Snapshot snapshot, Task task, SourceModificationEvent event) {
@@ -66,11 +66,11 @@ public class FTLParser extends Parser {
         FTLParserResult (Snapshot snapshot, List<ParseException> errors) {
             super (snapshot);
             this.errors = errors;
-			valid = errors.isEmpty();
+            valid = errors.isEmpty();
         }
 
         public List<ParseException> getErrors() {
-			return errors;
+            return errors;
         }
 
         @Override
@@ -80,7 +80,7 @@ public class FTLParser extends Parser {
 
         @Override
         public List<? extends Error> getDiagnostics() {
-            return new ArrayList<Error>();
+            return new ArrayList<>();
         }
 
     }

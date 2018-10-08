@@ -197,7 +197,7 @@ public class FTLCompletionItem implements CompletionItem {
     }
 
     private static void initBuiltins() {
-        builtinGroups = new HashMap<String, String>();
+        builtinGroups = new HashMap<>();
         try {
             String content = download(new URL("http://freemarker.org/docs/ref_builtins_alphaidx.html"));
             int start = content.indexOf("<ul>");

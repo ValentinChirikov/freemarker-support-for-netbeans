@@ -172,10 +172,10 @@ public class FTLLanguageHierarchy extends LanguageHierarchy<FTLTokenId> {
                     
                     
         });
-        idToToken = new HashMap<Integer, FTLTokenId>();
-        for (FTLTokenId token : tokens) {
+        idToToken = new HashMap<>();
+        tokens.forEach((token) -> {
             idToToken.put(token.ordinal(), token);
-        }
+        });
     }
 
     static synchronized FTLTokenId getToken(int id) {
