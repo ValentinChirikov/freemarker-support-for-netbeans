@@ -8,7 +8,7 @@ import org.netbeans.spi.lexer.LexerInput;
 import org.netbeans.spi.lexer.LexerRestartInfo;
 
 import freemarker.core.FMParserConstants;
-import freemarker.core.FMParserWSTokenManager;
+import freemarker.core.FMParserTokenManager;
 import freemarker.core.SimpleCharStream;
 import freemarker.core.Token;
 import freemarker.core.TokenMgrError;
@@ -20,7 +20,7 @@ import freemarker.core.TokenMgrError;
 class FTLLexer implements Lexer<FTLTokenId> {
 
     private LexerRestartInfo<FTLTokenId> info;
-    private FMParserWSTokenManager fmParserTokenManager;
+    private FMParserTokenManager fmParserTokenManager;
 
     public FTLLexer(LexerRestartInfo<FTLTokenId> info) {
         this.info = info;
@@ -38,7 +38,7 @@ class FTLLexer implements Lexer<FTLTokenId> {
             }
         };
         SimpleCharStream stream = new SimpleCharStream(istream);
-        fmParserTokenManager = new FMParserWSTokenManager(stream);
+        fmParserTokenManager = new FMParserTokenManager(stream);
     }
 
     @Override

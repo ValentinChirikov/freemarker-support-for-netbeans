@@ -1,17 +1,20 @@
 /*
- * Copyright 2014 Attila Szegedi, Daniel Dekany, Jonathan Revusky
- * 
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 
 package freemarker.core;
@@ -28,8 +31,7 @@ import freemarker.template.Template;
  * 
  * @see ParseException
  */
-public class TokenMgrError extends Error
-{
+public class TokenMgrError extends Error {
    /*
     * Ordinals for various reasons why an Error of this type can be thrown.
     */
@@ -69,7 +71,7 @@ public class TokenMgrError extends Error
     * equivalents in the given string
     */
    protected static final String addEscapes(String str) {
-      StringBuffer retval = new StringBuffer();
+      StringBuilder retval = new StringBuilder();
       char ch;
       for (int i = 0; i < str.length(); i++) {
         switch (str.charAt(i))
@@ -127,7 +129,7 @@ public class TokenMgrError extends Error
     */
    protected static String LexicalError(boolean EOFSeen, int lexState, int errorLine, int errorColumn, String errorAfter, char curChar) {
       return("Lexical error: encountered " +
-           (EOFSeen ? "<EOF> " : ("\"" + addEscapes(String.valueOf(curChar)) + "\"") + " (" + (int)curChar + "), ") +
+           (EOFSeen ? "<EOF> " : ("\"" + addEscapes(String.valueOf(curChar)) + "\"") + " (" + (int) curChar + "), ") +
            "after \"" + addEscapes(errorAfter) + "\".");
    }
 
@@ -140,7 +142,8 @@ public class TokenMgrError extends Error
     *
     * from this method for such cases in the release version of your parser.
     */
-   public String getMessage() {
+   @Override
+public String getMessage() {
       return super.getMessage();
    }
 
@@ -162,7 +165,8 @@ public class TokenMgrError extends Error
     * 
     * @deprecated If you know the end position, use {@link #TokenMgrError(String, int, int, int, int, int)} instead.
     */
-   public TokenMgrError(String detail, int reason, int errorLine, int errorColumn) {
+   @Deprecated
+public TokenMgrError(String detail, int reason, int errorLine, int errorColumn) {
        this(detail, reason, errorLine, errorColumn, 0, 0);
        this.endLineNumber = null; 
        this.endColumnNumber = null; 
@@ -178,17 +182,26 @@ public class TokenMgrError extends Error
        this.detail = detail;
        errorCode = reason;
        
-       this.lineNumber = new Integer(errorLine);  // In J2SE there was no Integer.valueOf(int)
-       this.columnNumber = new Integer(errorColumn);
-       this.endLineNumber = new Integer(endLineNumber); 
-       this.endColumnNumber = new Integer(endColumnNumber); 
+       this.lineNumber = Integer.valueOf(errorLine);  // In J2SE there was no Integer.valueOf(int)
+       this.columnNumber = Integer.valueOf(errorColumn);
+       this.endLineNumber = Integer.valueOf(endLineNumber); 
+       this.endColumnNumber = Integer.valueOf(endColumnNumber); 
     }
 
+   /**
+    * Overload for JavaCC 6 compatibility.
+    * 
+    * @since 2.3.24
+    */
+   TokenMgrError(boolean EOFSeen, int lexState, int errorLine, int errorColumn, String errorAfter, int curChar, int reason) {
+       this(EOFSeen, lexState, errorLine, errorColumn, errorAfter, (char) curChar, reason);
+   }
+   
    public TokenMgrError(boolean EOFSeen, int lexState, int errorLine, int errorColumn, String errorAfter, char curChar, int reason) {
       this(LexicalError(EOFSeen, lexState, errorLine, errorColumn, errorAfter, curChar), reason);
       
-      this.lineNumber = new Integer(errorLine);  // In J2SE there was no Integer.valueOf(int)
-      this.columnNumber = new Integer(errorColumn);
+      this.lineNumber = Integer.valueOf(errorLine);  // In J2SE there was no Integer.valueOf(int)
+      this.columnNumber = Integer.valueOf(errorColumn);
       // We blame the single character that can't be the start of a legal token: 
       this.endLineNumber = this.lineNumber; 
       this.endColumnNumber = this.columnNumber; 

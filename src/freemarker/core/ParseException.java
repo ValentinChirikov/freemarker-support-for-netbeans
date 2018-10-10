@@ -1,17 +1,20 @@
 /*
- * Copyright 2014 Attila Szegedi, Daniel Dekany, Jonathan Revusky
- * 
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 
 package freemarker.core;
@@ -39,7 +42,6 @@ import freemarker.template.utility.StringUtil;
  * 
  * @see TokenMgrError
  */
-@SuppressWarnings({"deprecation", "rawtypes", "unchecked", "dep-ann"})
 public class ParseException extends IOException implements FMParserConstants {
 
     /**
@@ -78,6 +80,7 @@ public class ParseException extends IOException implements FMParserConstants {
     protected String eol = SecurityUtilities.getSystemProperty("line.separator", "\n");
 
     /** @deprecated Will be remove without replacement in 2.4. */
+    @Deprecated
     protected boolean specialConstructor;  
 
     private String templateName;
@@ -95,8 +98,7 @@ public class ParseException extends IOException implements FMParserConstants {
     public ParseException(Token currentTokenVal,
             int[][] expectedTokenSequencesVal,
             String[] tokenImageVal
-            )
-    {
+            ) {
         super("");
         currentToken = currentTokenVal;
         specialConstructor = true;
@@ -119,6 +121,7 @@ public class ParseException extends IOException implements FMParserConstants {
      * 
      * @deprecated Use a constructor to which you pass description, template, and positions.
      */
+    @Deprecated
     protected ParseException() {
         super();
     }
@@ -126,6 +129,7 @@ public class ParseException extends IOException implements FMParserConstants {
     /**
      * @deprecated Use a constructor to which you can also pass the template, and the end positions.
      */
+    @Deprecated
     public ParseException(String description, int lineNumber, int columnNumber) {
         this(description, (Template) null, lineNumber, columnNumber, null);
     }
@@ -156,6 +160,7 @@ public class ParseException extends IOException implements FMParserConstants {
      * position of the error too.
      * @since 2.3.20
      */
+    @Deprecated
     public ParseException(String description, Template template, int lineNumber, int columnNumber) {
         this(description, template, lineNumber, columnNumber, null);      
     }
@@ -165,6 +170,7 @@ public class ParseException extends IOException implements FMParserConstants {
      * the end position of the error too.
      * @since 2.3.20
      */
+    @Deprecated
     public ParseException(String description, Template template, int lineNumber, int columnNumber, Throwable cause) {
         this(description,
                 template == null ? null : template.getSourceName(),
@@ -214,6 +220,11 @@ public class ParseException extends IOException implements FMParserConstants {
             int endLineNumber, int endColumnNumber,
             Throwable cause) {
         super(description);  // but we override getMessage, so it will be different
+        try {
+            this.initCause(cause);
+        } catch (Exception e) {
+            // Suppressed; we can't do more
+        }
         this.description = description; 
         this.templateName = templateName;
         this.lineNumber = lineNumber;
@@ -243,6 +254,7 @@ public class ParseException extends IOException implements FMParserConstants {
      * @see #getLineNumber()
      * @see #getColumnNumber()
      */
+    @Override
     public String getMessage() {
         synchronized (this) {
             if (messageAndDescriptionRendered) return message;
@@ -321,7 +333,7 @@ public class ParseException extends IOException implements FMParserConstants {
         String prefix;
         if (!isInJBossToolsMode()) {
             prefix = "Syntax error "
-                    + MessageUtil.formatLocationForSimpleParsingError(templateName, lineNumber, columnNumber)
+                    + _MessageUtil.formatLocationForSimpleParsingError(templateName, lineNumber, columnNumber)
                     + ":\n";  
         } else {
             prefix = "[col. " + columnNumber + "] ";
@@ -364,7 +376,7 @@ public class ParseException extends IOException implements FMParserConstants {
             tokenErrDesc = getCustomTokenErrorDescription();
             if (tokenErrDesc == null) {
                 // The default JavaCC message generation stuff follows.
-                StringBuffer expected = new StringBuffer();
+                StringBuilder expected = new StringBuilder();
                 int maxSize = 0;
                 for (int i = 0; i < expectedTokenSequences.length; i++) {
                     if (i != 0) {
@@ -472,16 +484,19 @@ public class ParseException extends IOException implements FMParserConstants {
             }
             return "Unexpected end of file reached."
                     + (endNames.size() == 0 ? "" : " You have an unclosed " + concatWithOrs(endNames) + ".");
-        } else if (kind == END_IF || kind == ELSE_IF || kind == ELSE) {
+        } else if (kind == ELSE) {
+            return "Unexpected directive, \"#else\". "
+                    + "Check if you have a valid #if-#elseif-#else or #list-#else structure.";
+        } else if (kind == END_IF || kind == ELSE_IF) {
             return "Unexpected directive, "
                     + StringUtil.jQuote(nextToken)
-                    + ". Check whether you have a valid #if-#elseif-#else structure.";
+                    + ". Check if you have a valid #if-#elseif-#else structure.";
         }
         return null;
     }
 
     private String concatWithOrs(Set/*<String>*/ endNames) {
-        StringBuffer sb = new StringBuffer(); 
+        StringBuilder sb = new StringBuilder(); 
         for (Iterator/*<String>*/ it = endNames.iterator(); it.hasNext(); ) {
             String endName = (String) it.next();
             if (sb.length() != 0) {
@@ -498,7 +513,7 @@ public class ParseException extends IOException implements FMParserConstants {
      * string literal.
      */
     protected String add_escapes(String str) {
-        StringBuffer retval = new StringBuffer();
+        StringBuilder retval = new StringBuilder();
         char ch;
         for (int i = 0; i < str.length(); i++) {
             switch (str.charAt(i))

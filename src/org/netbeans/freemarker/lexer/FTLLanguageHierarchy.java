@@ -52,6 +52,9 @@ public class FTLLanguageHierarchy extends LanguageHierarchy<FTLTokenId> {
                     new FTLTokenId("RETURN", "directive", FMParserConstants.RETURN),
                     new FTLTokenId("CALL", "directive", FMParserConstants.CALL), // deprecated
                     new FTLTokenId("SETTING", "directive", FMParserConstants.SETTING),
+                    new FTLTokenId("OUTPUTFORMAT", "directive", FMParserConstants.OUTPUTFORMAT),
+                    new FTLTokenId("AUTOESC", "directive", FMParserConstants.AUTOESC),
+                    new FTLTokenId("NOAUTOESC", "directive", FMParserConstants.NOAUTOESC),
                     new FTLTokenId("COMPRESS", "directive", FMParserConstants.COMPRESS),
                     new FTLTokenId("COMMENT", "directive", FMParserConstants.COMMENT), // deprecated
                     new FTLTokenId("TERSE_COMMENT", "comment", FMParserConstants.TERSE_COMMENT),
@@ -65,14 +68,15 @@ public class FTLLanguageHierarchy extends LanguageHierarchy<FTLTokenId> {
                     new FTLTokenId("END_FOREACH", "directive", FMParserConstants.END_FOREACH), // deprecated
                     new FTLTokenId("END_LOCAL", "directive", FMParserConstants.END_LOCAL),
                     new FTLTokenId("END_GLOBAL", "directive", FMParserConstants.END_GLOBAL),
-                    new FTLTokenId("END_ASSIGN", "directive", FMParserConstants.END_ASSIGN),
-                    new FTLTokenId("END_FUNCTION", "directive", FMParserConstants.END_FUNCTION),
-                    new FTLTokenId("END_MACRO", "directive", FMParserConstants.END_MACRO),
+                    new FTLTokenId("END_OUTPUTFORMAT", "directive", FMParserConstants.END_OUTPUTFORMAT),
+                    new FTLTokenId("END_AUTOESC", "directive", FMParserConstants.END_AUTOESC),
+                    new FTLTokenId("END_NOAUTOESC", "directive", FMParserConstants.END_NOAUTOESC),
                     new FTLTokenId("END_COMPRESS", "directive", FMParserConstants.END_COMPRESS),
                     new FTLTokenId("END_TRANSFORM", "directive", FMParserConstants.END_TRANSFORM), // deprecated
                     new FTLTokenId("END_SWITCH", "directive", FMParserConstants.END_SWITCH),
                     new FTLTokenId("ELSE", "directive", FMParserConstants.ELSE),
                     new FTLTokenId("BREAK", "directive", FMParserConstants.BREAK),
+                    new FTLTokenId("CONTINUE", "directive", FMParserConstants.CONTINUE),
                     new FTLTokenId("SIMPLE_RETURN", "directive", FMParserConstants.SIMPLE_RETURN),
                     new FTLTokenId("HALT", "keyword", FMParserConstants.HALT),
                     new FTLTokenId("FLUSH", "directive", FMParserConstants.FLUSH),
@@ -100,17 +104,9 @@ public class FTLLanguageHierarchy extends LanguageHierarchy<FTLTokenId> {
                     new FTLTokenId("STATIC_TEXT_FALSE_ALARM", "default", FMParserConstants.STATIC_TEXT_FALSE_ALARM),//new FTLTokenId("FALSE_ALERT", "braces", FMParserConstants.FALSE_ALERT),
                     new FTLTokenId("DOLLAR_INTERPOLATION_OPENING", "interpolation", FMParserConstants.DOLLAR_INTERPOLATION_OPENING),//new FTLTokenId("OUTPUT_ESCAPE", "braces", FMParserConstants.OUTPUT_ESCAPE),
                     new FTLTokenId("HASH_INTERPOLATION_OPENING", "interpolation", FMParserConstants.HASH_INTERPOLATION_OPENING),
-//                    new FTLTokenId("NUMERICAL_ESCAPE", "braces", FMParserConstants.NUMERICAL_ESCAPE),
-                    new FTLTokenId("WHITESPACE", "whitespace", FMParserConstants.WHITESPACE),
-//                    new FTLTokenId("A_74", "braces", FMParserConstants.A_74),
-//                    new FTLTokenId("A_75", "braces", FMParserConstants.A_75),
-//                    new FTLTokenId("A_76", "braces", FMParserConstants.A_76),
-//                    new FTLTokenId("A_77", "braces", FMParserConstants.A_77),
-//                    new FTLTokenId("A_78", "braces", FMParserConstants.A_78),
-//                    new FTLTokenId("A_79", "braces", FMParserConstants.A_79),
+                    new FTLTokenId("SQUARE_BRACKET_INTERPOLATION_OPENING", "interpolation", FMParserConstants.SQUARE_BRACKET_INTERPOLATION_OPENING),
                     new FTLTokenId("ESCAPED_CHAR", "keyword", FMParserConstants.ESCAPED_CHAR),
                     new FTLTokenId("STRING_LITERAL", "string", FMParserConstants.STRING_LITERAL),
-                    new FTLTokenId("UNCLOSED_STRING_LITERAL", "errors", FMParserConstants.UNCLOSED_STRING_LITERAL),
                     new FTLTokenId("RAW_STRING", "literal", FMParserConstants.RAW_STRING),
                     new FTLTokenId("FALSE", "keyword", FMParserConstants.FALSE),
                     new FTLTokenId("TRUE", "keyword", FMParserConstants.TRUE),
@@ -125,6 +121,13 @@ public class FTLLanguageHierarchy extends LanguageHierarchy<FTLTokenId> {
                     new FTLTokenId("EQUALS", "operator", FMParserConstants.EQUALS),
                     new FTLTokenId("DOUBLE_EQUALS", "operator", FMParserConstants.DOUBLE_EQUALS),
                     new FTLTokenId("NOT_EQUALS", "operator", FMParserConstants.NOT_EQUALS),
+                    new FTLTokenId("PLUS_EQUALS", "operator", FMParserConstants.PLUS_EQUALS),
+                    new FTLTokenId("MINUS_EQUALS", "operator", FMParserConstants.MINUS_EQUALS),
+                    new FTLTokenId("TIMES_EQUALS", "operator", FMParserConstants.TIMES_EQUALS),
+                    new FTLTokenId("DIV_EQUALS", "operator", FMParserConstants.DIV_EQUALS),
+                    new FTLTokenId("MOD_EQUALS", "operator", FMParserConstants.MOD_EQUALS),
+                    new FTLTokenId("PLUS_PLUS", "operator", FMParserConstants.PLUS_PLUS),
+                    new FTLTokenId("MINUS_MINUS", "operator", FMParserConstants.MINUS_MINUS),
                     new FTLTokenId("LESS_THAN", "operator", FMParserConstants.LESS_THAN),
                     new FTLTokenId("LESS_THAN_EQUALS", "operator", FMParserConstants.LESS_THAN_EQUALS),
                     new FTLTokenId("ESCAPED_GT", "operator", FMParserConstants.ESCAPED_GT),
@@ -167,10 +170,6 @@ public class FTLLanguageHierarchy extends LanguageHierarchy<FTLTokenId> {
                     new FTLTokenId("MAYBE_END", "comment", FMParserConstants.MAYBE_END),
                     new FTLTokenId("KEEP_GOING", "comment", FMParserConstants.KEEP_GOING),
                     new FTLTokenId("LONE_LESS_THAN_OR_DASH", "comment", FMParserConstants.LONE_LESS_THAN_OR_DASH),
-                    
-                    
-                    
-                    
         });
         idToToken = new HashMap<>();
         tokens.forEach((token) -> {
