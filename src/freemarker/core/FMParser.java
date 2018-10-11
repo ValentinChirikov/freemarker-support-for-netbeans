@@ -335,7 +335,7 @@ public class FMParser implements FMParserConstants {
             } else if (autoEscapingPolicy == Configuration.DISABLE_AUTO_ESCAPING_POLICY) {
                 autoEscaping = false;
             } else {
-                throw new IllegalStateException("Unhandled autoEscaping ENUM: " + autoEscapingPolicy);
+                throw new IllegalStateException("Unhandled autoEscaping enum: " + autoEscapingPolicy);
             }
         } else {
             autoEscaping = false;
