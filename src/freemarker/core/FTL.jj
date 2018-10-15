@@ -1178,14 +1178,14 @@ TOKEN:
     <SQUARE_BRACKET_INTERPOLATION_OPENING : "[="> { startInterpolation(matchedToken); }
 }
 
-<FM_EXPRESSION, IN_PAREN, NAMED_PARAMETER_EXPRESSION> SKIP :
+<FM_EXPRESSION, IN_PAREN, NAMED_PARAMETER_EXPRESSION> TOKEN :
 {
-    < ( " " | "\t" | "\n" | "\r" )+ >
+    < WHITESPACE : ( " " | "\t" | "\n" | "\r" )+ >
     |
     < ("<" | "[") ("#" | "!") "--"> : EXPRESSION_COMMENT
 }
 
-<EXPRESSION_COMMENT> SKIP:
+<EXPRESSION_COMMENT> TOKEN:
 {
     < (~["-", ">", "]"])+ >
     |

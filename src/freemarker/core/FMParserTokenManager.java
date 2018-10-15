@@ -5742,6 +5742,10 @@ private int jjMoveStringLiteralDfa0_5(){
    {
       case 45:
          return jjStartNfaWithStates_5(0, 90, 3);
+      case 62:
+         return jjStopAtPos(0, 88);
+      case 93:
+         return jjStopAtPos(0, 89);
       default :
          return jjMoveNfa_5(1, 0);
    }
@@ -7937,7 +7941,7 @@ null, null, null, null, null, null, null, null, null, null, null, null, null, nu
 null, null, null, null, null, null, null, null, null, null, null, null, null, null, 
 null, null, null, null, null, null, null, null, null, null, null, null, null, null, 
 null, null, null, null, null, null, null, null, null, null, null, null, null, 
-"\44\173", "\43\173", "\133\75", null, null, null, null, null, null, null, null, null, 
+"\44\173", "\43\173", "\133\75", null, null, null, "\76", "\135", "\55", null, null, null, 
 null, "\146\141\154\163\145", "\164\162\165\145", null, null, "\56", "\56\56", null, 
 "\56\56\52", "\77", "\77\77", "\75", "\75\75", "\41\75", "\53\75", "\55\75", "\52\75", 
 "\57\75", "\45\75", "\53\53", "\55\55", null, null, null, null, "\53", "\55", "\52", 
@@ -8028,12 +8032,6 @@ public Token getNextToken()
        curPos = jjMoveStringLiteralDfa0_4();
        break;
      case 5:
-       try { input_stream.backup(0);
-          while ((curChar < 64 && (0x4000000000000000L & (1L << curChar)) != 0L) || 
-                 (curChar >> 6) == 1 && (0x20000000L & (1L << (curChar & 077))) != 0L)
-             curChar = input_stream.BeginToken();
-       }
-       catch (java.io.IOException e1) { continue EOFLoop; }
        jjmatchedKind = 0x7fffffff;
        jjmatchedPos = 0;
        curPos = jjMoveStringLiteralDfa0_5();
@@ -8053,21 +8051,11 @@ public Token getNextToken()
      {
         if (jjmatchedPos + 1 < curPos)
            input_stream.backup(curPos - jjmatchedPos - 1);
-        if ((jjtoToken[jjmatchedKind >> 6] & (1L << (jjmatchedKind & 077))) != 0L)
-        {
            matchedToken = jjFillToken();
            TokenLexicalActions(matchedToken);
        if (jjnewLexState[jjmatchedKind] != -1)
          curLexState = jjnewLexState[jjmatchedKind];
            return matchedToken;
-        }
-        else
-        {
-           SkipLexicalActions(null);
-         if (jjnewLexState[jjmatchedKind] != -1)
-           curLexState = jjnewLexState[jjmatchedKind];
-           continue EOFLoop;
-        }
      }
      int error_line = input_stream.getEndLine();
      int error_column = input_stream.getEndColumn();
@@ -8092,20 +8080,6 @@ public Token getNextToken()
   }
 }
 
-void SkipLexicalActions(Token matchedToken)
-{
-   switch(jjmatchedKind)
-   {
-      case 91 :
-         image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
-        if (parenthesisNesting > 0) SwitchTo(IN_PAREN);
-        else if (inInvocation) SwitchTo(NAMED_PARAMETER_EXPRESSION);
-        else SwitchTo(FM_EXPRESSION);
-         break;
-      default :
-         break;
-   }
-}
 void TokenLexicalActions(Token matchedToken)
 {
    switch(jjmatchedKind)
@@ -8479,6 +8453,12 @@ void TokenLexicalActions(Token matchedToken)
         lengthOfMatch = jjstrLiteralImages[84].length();
                                                     startInterpolation(matchedToken);
          break;
+      case 91 :
+        image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
+        if (parenthesisNesting > 0) SwitchTo(IN_PAREN);
+        else if (inInvocation) SwitchTo(NAMED_PARAMETER_EXPRESSION);
+        else SwitchTo(FM_EXPRESSION);
+         break;
       case 132 :
         image.append(jjstrLiteralImages[132]);
         lengthOfMatch = jjstrLiteralImages[132].length();
@@ -8727,12 +8707,6 @@ public static final int[] jjnewLexState = {
    -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 
    -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 
    -1, 2, 2, -1, -1, -1, -1, 
-};
-static final long[] jjtoToken = {
-   0xffffffffffffffc1L, 0xffffffffe01fffffL, 0x1ff87fffL, 
-};
-static final long[] jjtoSkip = {
-   0x0L, 0xfe00000L, 0x0L, 
 };
     protected SimpleCharStream  input_stream;
 

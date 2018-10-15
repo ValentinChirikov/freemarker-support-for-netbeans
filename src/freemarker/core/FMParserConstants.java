@@ -179,6 +179,8 @@ public interface FMParserConstants {
   /** RegularExpression Id. */
   int SQUARE_BRACKET_INTERPOLATION_OPENING = 84;
   /** RegularExpression Id. */
+  int WHITESPACE = 85;
+  /** RegularExpression Id. */
   int ESCAPED_CHAR = 92;
   /** RegularExpression Id. */
   int STRING_LITERAL = 93;
@@ -413,7 +415,7 @@ public interface FMParserConstants {
     "\"${\"",
     "\"#{\"",
     "\"[=\"",
-    "<token of kind 85>",
+    "<WHITESPACE>",
     "<token of kind 86>",
     "<token of kind 87>",
     "\">\"",
