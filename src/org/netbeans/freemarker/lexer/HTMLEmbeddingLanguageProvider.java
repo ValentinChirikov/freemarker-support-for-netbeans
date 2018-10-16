@@ -53,19 +53,22 @@ public class HTMLEmbeddingLanguageProvider extends LanguageProvider {
      */
     @Override
     public LanguageEmbedding<?> findLanguageEmbedding(Token<?> token, LanguagePath languagePath, InputAttributes inputAttributes) {
-        initLanguage();//prepare Html language
+        initLanguage();
 
-        if (token.id().name().startsWith("STATIC_TEXT")) {//check if it eats comments
-            return LanguageEmbedding.create(embeddedLanguage, 0, 0, true);//we will join embedded language section over all doc
+        if (languagePath.mimePath().equals("text/html")) {
+            if (token.id().name().equals("TEXT")) {
+                return LanguageEmbedding.create(embeddedLanguage, 0, 0, false);
+            }
         }
 
         return null;
     }
 
     private void initLanguage() {
-        embeddedLanguage = MimeLookup.getLookup("text/html").lookup(Language.class);
+        embeddedLanguage = MimeLookup.getLookup("text/x-ftl").lookup(Language.class);
+
         if (embeddedLanguage == null) {
-            throw new NullPointerException("Can't find HTML language for embedding");
+            throw new NullPointerException("Can't find language for embedding");
         }
 
     }

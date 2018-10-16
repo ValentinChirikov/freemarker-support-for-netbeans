@@ -23,8 +23,9 @@ import org.openide.loaders.DataObjectNotFoundException;
 import org.openide.util.Exceptions;
 
 import freemarker.core.FMParserConstants;
+import org.netbeans.api.lexer.Language;
 
-@MimeRegistration(mimeType = "text/x-ftl", service = HyperlinkProviderExt.class)
+@MimeRegistration(mimeType = "text/html", service = HyperlinkProviderExt.class)
 public class FTLHyperlinkProvider implements HyperlinkProviderExt {
 
     private int startOffset, endOffset;
@@ -91,31 +92,29 @@ public class FTLHyperlinkProvider implements HyperlinkProviderExt {
 
         TokenHierarchy<?> th = TokenHierarchy.get(doc);
 
-//        TokenSequence htmlTs = th.tokenSequence(Language.find("text/html"));
-//        if (htmlTs == null || !htmlTs.moveNext() && !htmlTs.movePrevious()) {
-//            return null;
-//        }
-//        
-//        TokenSequence ts = htmlTs.embedded();
-//        if (ts == null) {
-//            return null;
-//        }
-        TokenSequence ts = th.tokenSequence();
-        if (ts != null) {
-            ts.move(offset);
-            if (ts.moveNext() || ts.movePrevious()) {
+        TokenSequence htmlTs = th.tokenSequence(Language.find("text/html"));
+        if (htmlTs == null || !htmlTs.moveNext() && !htmlTs.movePrevious()) {
+            return null;
+        }
 
-                Token t = ts.token();
-                if (t.id().ordinal() == FMParserConstants.STRING_LITERAL) {
-                    //Correction for quotation marks around the token:
-                    startOffset = ts.offset() + 1;
-                    endOffset = ts.offset() + t.length() - 1;
-                    //Check that the previous token was an import or include statement
-                    ts.movePrevious();
-                    Token prevToken = ts.token();
-                    if (prevToken.id().ordinal() == FMParserConstants.IMPORT || prevToken.id().ordinal() == FMParserConstants._INCLUDE) {
-                        result = new int[]{startOffset, endOffset};
-                    }
+        TokenSequence ts = htmlTs.embedded();
+        if (ts == null) {
+            return null;
+        }
+
+        ts.move(offset);
+        if (ts.moveNext() || ts.movePrevious()) {
+
+            Token t = ts.token();
+            if (t.id().ordinal() == FMParserConstants.STRING_LITERAL) {
+                //Correction for quotation marks around the token:
+                startOffset = ts.offset() + 1;
+                endOffset = ts.offset() + t.length() - 1;
+                //Check that the previous token was an import or include statement
+                ts.movePrevious();
+                Token prevToken = ts.token();
+                if (prevToken.id().ordinal() == FMParserConstants.IMPORT || prevToken.id().ordinal() == FMParserConstants._INCLUDE) {
+                    result = new int[]{startOffset, endOffset};
                 }
             }
         }
