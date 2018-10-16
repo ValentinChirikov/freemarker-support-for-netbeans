@@ -65,8 +65,8 @@ public class FTLCompletionProvider implements CompletionProvider {
                 int startOffset = caretOffset - 1; // poczatek uzupelnianego slowa
                 String currentLine;
                 String text;
-                Set<String> idents = new HashSet<String>();
-                HashMap<String, Set<String>> variables = new HashMap<String, Set<String>>();
+                Set<String> idents = new HashSet<>();
+                HashMap<String, Set<String>> variables = new HashMap<>();
 
                 Token prevToken;
                 TokenSequence ts;
@@ -120,7 +120,7 @@ public class FTLCompletionProvider implements CompletionProvider {
 
                         Set<String> varFields = variables.get(name);
                         if (varFields == null) {
-                            varFields = new HashSet<String>();
+                            varFields = new HashSet<>();
                             variables.put(name, varFields);
                         }
 
@@ -143,7 +143,7 @@ public class FTLCompletionProvider implements CompletionProvider {
                 } else if (currentLine.matches(".*(<|\\[)@\\w*")) {
                     // unified call
                     filter = currentLine.substring(currentLine.lastIndexOf("@") + 1);
-                    Set<String> names = new HashSet<String>();
+                    Set<String> names = new HashSet<>();
                     Pattern pattern = Pattern.compile("(<|\\[)#assign\\s+(\\w+)");
                     Matcher matcher = pattern.matcher(text);
                     while (matcher.find()) {

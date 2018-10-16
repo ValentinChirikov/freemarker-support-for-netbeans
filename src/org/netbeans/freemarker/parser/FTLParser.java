@@ -20,51 +20,49 @@ import org.netbeans.modules.parsing.spi.Parser;
 import org.netbeans.modules.parsing.spi.Parser.Result;
 import org.netbeans.modules.parsing.spi.SourceModificationEvent;
 
-
 public class FTLParser extends Parser {
 
     private Snapshot snapshot;
     private FMParser freemarkerParser;
-	private final List<ParseException> errors = new ArrayList<>();
+    private final List<ParseException> errors = new ArrayList<>();
 
     @Override
-    public void parse (Snapshot snapshot, Task task, SourceModificationEvent event) {
+    public void parse(Snapshot snapshot, Task task, SourceModificationEvent event) {
         this.snapshot = snapshot;
-		errors.clear();
+        errors.clear();
         Reader reader = new StringReader(snapshot.getText().toString());
-		try {
-			Template tpl = new Template(snapshot.getSource().getFileObject().getNameExt(), reader);
-		    freemarkerParser = new FMParser(tpl, reader, false, false);
-			freemarkerParser.Root();
-		} catch (ParseException ex) {
-			errors.add(ex);
-			//ex.printStackTrace();
-		} catch (IOException ex) {
-			//ex.printStackTrace();
-		}
+        try {
+            Template tpl = new Template(snapshot.getSource().getFileObject().getNameExt(), reader);
+            freemarkerParser = new FMParser(tpl, reader, false, false);
+            freemarkerParser.Root();
+        } catch (ParseException ex) {
+            errors.add(ex);
+            //ex.printStackTrace();
+        } catch (IOException ex) {
+            //ex.printStackTrace();
+        }
     }
 
     @Override
-    public Result getResult (Task task) {
-        return new FTLParserResult (snapshot, errors);
+    public Result getResult(Task task) {
+        return new FTLParserResult(snapshot, errors);
     }
 
     @Override
-    public void addChangeListener (ChangeListener changeListener) {
+    public void addChangeListener(ChangeListener changeListener) {
     }
 
     @Override
-    public void removeChangeListener (ChangeListener changeListener) {
+    public void removeChangeListener(ChangeListener changeListener) {
     }
 
-    
     public static class FTLParserResult extends ParserResult {
 
         private final List<ParseException> errors;
         private boolean valid = true;
 
-        FTLParserResult (Snapshot snapshot, List<ParseException> errors) {
-            super (snapshot);
+        FTLParserResult(Snapshot snapshot, List<ParseException> errors) {
+            super(snapshot);
             this.errors = errors;
             valid = errors.isEmpty();
         }
@@ -84,5 +82,5 @@ public class FTLParser extends Parser {
         }
 
     }
-    
+
 }

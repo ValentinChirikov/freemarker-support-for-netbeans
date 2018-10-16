@@ -12,6 +12,8 @@ import freemarker.core.FMParserTokenManager;
 import freemarker.core.SimpleCharStream;
 import freemarker.core.Token;
 import freemarker.core.TokenMgrError;
+import org.netbeans.freemarker.panel.FTLPanel;
+import org.openide.util.NbPreferences;
 
 /**
  *
@@ -90,7 +92,9 @@ class FTLLexer implements Lexer<FTLTokenId> {
         }
         int length = token.image.length();
         debug("length " + length + " readLength " + info.input().readLength());
-
+        if(tokenId == null) {
+            int z = 0;
+        }
         return info.tokenFactory().createToken(tokenId, length);
     }
 
@@ -104,6 +108,9 @@ class FTLLexer implements Lexer<FTLTokenId> {
     }
 
     private void debug(Object s) {
-            //System.out.println(s);//-20181005 valc@ese.by make IDE slow when netbaeans.conf has console log enabled
+        //-20181005 valc@ese.by make IDE slow when netbaeans.conf has console log enabled
+        if(NbPreferences.forModule(FTLPanel.class).getBoolean("debug", false)) {
+            System.out.println(s);
+        }
     }
 }

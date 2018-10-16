@@ -42,7 +42,7 @@ public class FTLHighlighter implements CaretListener {
     public FTLHighlighter(Document doc) {
         rp = new RequestProcessor(FTLHighlighter.class);
         bag = new OffsetsBag(doc);
-        weakDoc = new WeakReference<Document>(doc);
+        weakDoc = new WeakReference<>(doc);
         DataObject dobj = NbEditorUtilities.getDataObject(weakDoc.get());
         if (dobj != null) {
             EditorCookie pane = dobj.getLookup().lookup(EditorCookie.class);

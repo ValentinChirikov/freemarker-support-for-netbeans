@@ -21,12 +21,18 @@ public final class FTLPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         embeddedMime = new javax.swing.JComboBox();
-        label1 = new javax.swing.JLabel();
+        labelEmbeddedLanguage = new javax.swing.JLabel();
+        labelDebug = new javax.swing.JLabel();
+        checkBoxDebug = new javax.swing.JCheckBox();
 
         embeddedMime.setEditable(true);
         embeddedMime.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "text/html", "text/css", "text/javascript", "text/plain" }));
 
-        org.openide.awt.Mnemonics.setLocalizedText(label1, org.openide.util.NbBundle.getMessage(FTLPanel.class, "FTLPanel.label1.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(labelEmbeddedLanguage, org.openide.util.NbBundle.getMessage(FTLPanel.class, "FTLPanel.labelEmbeddedLanguage.text")); // NOI18N
+
+        org.openide.awt.Mnemonics.setLocalizedText(labelDebug, org.openide.util.NbBundle.getMessage(FTLPanel.class, "FTLPanel.labelDebug.text")); // NOI18N
+
+        org.openide.awt.Mnemonics.setLocalizedText(checkBoxDebug, org.openide.util.NbBundle.getMessage(FTLPanel.class, "FTLPanel.checkBoxDebug.text")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -34,9 +40,13 @@ public final class FTLPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(label1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(labelDebug)
+                    .addComponent(labelEmbeddedLanguage))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(embeddedMime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(embeddedMime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(checkBoxDebug))
                 .addContainerGap(148, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -44,30 +54,24 @@ public final class FTLPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(label1)
+                    .addComponent(labelEmbeddedLanguage)
                     .addComponent(embeddedMime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(147, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelDebug)
+                    .addComponent(checkBoxDebug))
+                .addContainerGap(120, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     void load() {
-        // TODO read settings and initialize GUI
-        // Example:        
-        // someCheckBox.setSelected(Preferences.userNodeForPackage(FTLPanel.class).getBoolean("someFlag", false));
-        // or for org.openide.util with API spec. version >= 7.4:
         embeddedMime.setSelectedItem(NbPreferences.forModule(FTLPanel.class).get("embeddedMime", "text/html"));
-        // or:
-        // someTextField.setText(SomeSystemOption.getDefault().getSomeStringProperty());
+        checkBoxDebug.setSelected(NbPreferences.forModule(FTLPanel.class).getBoolean("debug", true));
     }
 
     void store() {
-        // TODO store modified settings
-        // Example:
-        // Preferences.userNodeForPackage(FTLPanel.class).putBoolean("someFlag", someCheckBox.isSelected());
-        // or for org.openide.util with API spec. version >= 7.4:
         NbPreferences.forModule(FTLPanel.class).put("embeddedMime", (String) embeddedMime.getSelectedItem());
-        // or:
-        // SomeSystemOption.getDefault().setSomeStringProperty(someTextField.getText());
+        NbPreferences.forModule(FTLPanel.class).putBoolean("debug", checkBoxDebug.isSelected());
     }
 
     boolean valid() {
@@ -76,7 +80,9 @@ public final class FTLPanel extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox checkBoxDebug;
     private javax.swing.JComboBox embeddedMime;
-    private javax.swing.JLabel label1;
+    private javax.swing.JLabel labelDebug;
+    private javax.swing.JLabel labelEmbeddedLanguage;
     // End of variables declaration//GEN-END:variables
 }

@@ -9,8 +9,6 @@ import javax.swing.text.StyledDocument;
 
 import freemarker.core.ParseException;
 
-import freemarker.core.Token;
-
 import org.netbeans.freemarker.parser.FTLParser.FTLParserResult;
 import org.netbeans.modules.parsing.spi.Parser.Result;
 import org.netbeans.modules.parsing.spi.ParserResultTask;
@@ -31,7 +29,7 @@ public class FTLSyntaxErrorHighlightingTask extends ParserResultTask {
             FTLParserResult sjResult = (FTLParserResult) result;
             List<ParseException> syntaxErrors = sjResult.getErrors();
             Document document = result.getSnapshot ().getSource ().getDocument (false);
-            List<ErrorDescription> errors = new ArrayList<ErrorDescription> ();
+            List<ErrorDescription> errors = new ArrayList<> ();
             for (ParseException syntaxError : syntaxErrors) {
                 int start = NbDocument.findLineOffset ((StyledDocument) document, syntaxError.lineNumber - 1) + syntaxError.columnNumber - 1;
                 int end = NbDocument.findLineOffset ((StyledDocument) document, syntaxError.endLineNumber - 1) + syntaxError.endColumnNumber;

@@ -88,7 +88,7 @@ public class FTLDataObject extends MultiDataObject {
     public FTLDataObject(FileObject pf, MultiFileLoader loader) throws DataObjectExistsException, IOException {
         super(pf, loader);
         registerEditor("text/x-ftl", true);
-        getLookup().lookup(DataEditorSupport.class).setMIMEType("text/html");
+//        getLookup().lookup(DataEditorSupport.class).setMIMEType("text/html");
     }
 
     @Override

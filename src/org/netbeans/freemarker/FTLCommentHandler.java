@@ -4,7 +4,7 @@ import org.netbeans.modules.csl.spi.CommentHandler;
 
 /**
  *
- * @author valc@ese.by
+ * @author Valentin Chirikov
  */
 public class FTLCommentHandler extends CommentHandler.DefaultCommentHandler {
 
