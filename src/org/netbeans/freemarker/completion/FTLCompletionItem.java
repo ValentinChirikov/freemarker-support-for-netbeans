@@ -1,4 +1,4 @@
-package org.netbeans.freemarker;
+package org.netbeans.freemarker.completion;
 
 import java.awt.Color;
 import java.awt.Font;

@@ -1,5 +1,6 @@
 package org.netbeans.freemarker;
 
+import org.netbeans.freemarker.comment.FTLCommentHandler;
 import org.netbeans.api.lexer.Language;
 import org.netbeans.freemarker.lexer.FTLTokenId;
 import org.netbeans.freemarker.parser.FTLParser;

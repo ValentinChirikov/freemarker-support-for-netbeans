@@ -1,4 +1,4 @@
-package org.netbeans.freemarker;
+package org.netbeans.freemarker.comment;
 
 import org.netbeans.modules.csl.spi.CommentHandler;
 
