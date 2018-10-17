@@ -1,6 +1,6 @@
 forked from rostanek/freemarker-support-for-netbeans
-- dsabled debug output for performance reasons
-- added FreeMarker jar
+- checkbox "Debug"
+- FreeMarker 2.3.28 
 - HTML, FTL completion https://blogs.oracle.com/geertjan/html-embedding-for-freemarker
 
 # freemarker-support-for-netbeans
